@@ -56,24 +56,7 @@ Dibuja (a mano y pega una foto, o con texto/Mermaid) el recorrido completo desde
 **Agregar** hasta que ve la fila nueva en la tabla. Marca en cada paso **el archivo y el método** que actúa.
 
 ```mermaid
-sequenceDiagram
-    actor U as Usuario
-    participant V as Vista (vista.js)
-    participant C as Controlador (controlador.js)
-    participant M as Modelo (modelo.js)
-    participant A as Almacen (almacen.js)
-
-    U->>V: presiona Agregar (evento submit)
-    V->>V: leerFormulario()
-    V->>C: manejador de alAgregar con nombre, peso y nota como texto
-    C->>C: #ejecutar pasa peso y nota a numero
-    C->>M: agregar({ nombre, peso, nota })
-    M->>M: valida R1 a R5 y crea la evaluacion
-    M->>A: guardar() dentro de #cambio()
-    M->>V: avisa al suscriptor que registro la Vista
-    V->>V: render() dibuja la fila nueva
-    C->>V: limpiarError() y limpiarFormulario()
-    V-->>U: ve la fila nueva en la tabla
+https://lucid.app/lucidchart/8d18ca02-5bfa-4286-824e-67abd633cdeb/edit?viewport_loc=-1016%2C-454%2C1321%2C1787%2C0_0&invitationId=inv_a09c145b-520d-4a0a-99d3-47787168b629
 ```
 
 ## 4. Evidencias (Partes 2, 3, 4 y 6)
@@ -81,13 +64,43 @@ sequenceDiagram
 **Salida de `npm test`** (pega el final, donde dice cuántas pruebas pasan):
 
 ```text
+C:\Users\santi\Downloads\solucion lab\laboratorio-mvc-notas>npm test
+
+> mvc-notas-lab@1.0.0 test
+> node pruebas/ejecutar.mjs
+
+
+MODELO
+  ✓ A · Agregar y validar ......................... 11/11
+  ✓ B · Calificar y eliminar ...................... 7/7
+  ✓ C · Resumen ................................... 10/10
+  ✓ D · Observador y persistencia ................. 8/8
+  ✓ E · Parte 5A · Nombres únicos ................. 3/3
+
+ARQUITECTURA
+  ✓ Modelo puro ................................... 4/4
+  ✓ Vista pasiva .................................. 5/5
+  ✓ Controlador delgado ........................... 6/6
+
+✓ 54 de 54 pruebas pasan.
 
 ```
 
 **Salida de `npm run arquitectura`:**
 
 ```text
+C:\Users\santi\Downloads\solucion lab\laboratorio-mvc-notas>npm run arquitectura
 
+> mvc-notas-lab@1.0.0 arquitectura
+> node pruebas/ejecutar.mjs arquitectura
+
+
+ARQUITECTURA
+  ✓ Modelo puro ................................... 4/4
+  ✓ Vista pasiva .................................. 5/5
+  ✓ Controlador delgado ........................... 6/6
+
+✓ 15 de 15 pruebas pasan.
 ```
 
 **Captura de pantalla** de la app con las dos vistas (la tabla/resumen y el termómetro): _(pega la imagen o su enlace)_
@@ -99,9 +112,9 @@ La idea: **cada cambio debía tocar solo las piezas que le corresponden**.
 
 | Cambio | Archivos que tocaste | ¿Era lo esperado? ¿Por qué? |
 |---|---|---|
-| 5A · Nombres únicos | | |
-| 5B · Segunda vista (termómetro) | | |
-| 5C · Otro almacén | | |
+| 5A · Nombres únicos | `src/modelo.js` | Sí, porque validar que no se repitan los nombres es una regla del negocio y debe estar en el Modelo. Se ignoran las mayúsculas y los espacios sobrantes. |
+| 5B · Segunda vista (termómetro) | `src/termometro-vista.js`, `src/main.js` | Sí, porque se creó una nueva vista para mostrar el acumulado y la nota mínima para aprobar. Solo fue necesario crear la vista y conectarla con el Modelo desde `main.js`. |
+| 5C · Otro almacén | `src/almacen.js`, `src/main.js` | Sí, porque se agregó `AlmacenSesion` utilizando `sessionStorage` y se seleccionó desde `main.js`. El Modelo no necesitó cambios porque el nuevo almacén mantiene los métodos `cargar()` y `guardar()`. |
 
 ## 6. Reflexión (Parte 6)
 
@@ -125,54 +138,5 @@ R/ El que mas facil nos pudo pasar era meter logica en la Vista, por ejemplo dec
 
 R/ No lo usariamos en un script pequeño o de una sola vez, porque separar en tres piezas daria mas trabajo que beneficio. Se justifica cuando la app va a crecer, tiene reglas que probar o necesita varias pantallas.
 
-## 6. Reflexión
 
-**1. ¿Qué problema tenía el código espagueti?**
-
-El código espagueti mezclaba las reglas, la interfaz y el almacenamiento en un mismo lugar. Esto hacía más difícil entenderlo, corregir errores y agregar nuevas funciones sin afectar otras partes.
-
-**2. ¿Qué ventajas tiene separar el Modelo, la Vista y el Controlador?**
-
-Cada parte tiene una responsabilidad específica. El Modelo maneja los datos y las reglas, la Vista muestra la información y el Controlador conecta las acciones del usuario con el Modelo. Esto facilita el mantenimiento y las pruebas.
-
-**3. ¿Por qué es importante que el Modelo no dependa del navegador?**
-
-Porque permite probar las reglas del negocio directamente con Node.js, sin tener que abrir una página web. También hace que el Modelo pueda reutilizarse con otras interfaces.
-
-**4. ¿Qué demostraron los tres cambios de la Parte 5?**
-
-Demostraron que una regla nueva puede agregarse al Modelo, una segunda representación visual puede crearse sin modificar el Modelo y el almacenamiento puede cambiarse sin reescribir las reglas del negocio.
-
-**5. ¿Qué aprendimos sobre las pruebas de arquitectura?**
-
-Aprendimos que no basta con que la aplicación funcione. También es importante comprobar que cada pieza cumpla su responsabilidad y no dependa innecesariamente de las demás.
-
-## TEST
-
-C:\Users\santi\Downloads\solucion lab\laboratorio-mvc-notas>npm test
-
-> mvc-notas-lab@1.0.0 test
-> node pruebas/ejecutar.mjs
-
-
-MODELO
-  ✓ A · Agregar y validar ......................... 11/11
-  ✓ B · Calificar y eliminar ...................... 7/7
-  ✓ C · Resumen ................................... 10/10
-  ✓ D · Observador y persistencia ................. 8/8
-  ✓ E · Parte 5A · Nombres únicos ................. 3/3
-
-ARQUITECTURA
-  ✓ Modelo puro ................................... 4/4
-  ✓ Vista pasiva .................................. 5/5
-  ✓ Controlador delgado ........................... 6/6
-
-✓ 54 de 54 pruebas pasan.
-
-
-C:\Users\santi\Downloads\solucion lab\laboratorio-mvc-notas>
-
-## Diagrama del flujo
-
-https://lucid.app/lucidchart/8d18ca02-5bfa-4286-824e-67abd633cdeb/edit?viewport_loc=-1016%2C-454%2C1321%2C1787%2C0_0&invitationId=inv_a09c145b-520d-4a0a-99d3-47787168b629
 
