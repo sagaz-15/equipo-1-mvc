@@ -124,3 +124,55 @@ R/ El que mas facil nos pudo pasar era meter logica en la Vista, por ejemplo dec
 5. ¿Para qué tipo de aplicación **no** usarías MVC? Justifica con lo que viste en el laboratorio.
 
 R/ No lo usariamos en un script pequeño o de una sola vez, porque separar en tres piezas daria mas trabajo que beneficio. Se justifica cuando la app va a crecer, tiene reglas que probar o necesita varias pantallas.
+
+## 6. Reflexión
+
+**1. ¿Qué problema tenía el código espagueti?**
+
+El código espagueti mezclaba las reglas, la interfaz y el almacenamiento en un mismo lugar. Esto hacía más difícil entenderlo, corregir errores y agregar nuevas funciones sin afectar otras partes.
+
+**2. ¿Qué ventajas tiene separar el Modelo, la Vista y el Controlador?**
+
+Cada parte tiene una responsabilidad específica. El Modelo maneja los datos y las reglas, la Vista muestra la información y el Controlador conecta las acciones del usuario con el Modelo. Esto facilita el mantenimiento y las pruebas.
+
+**3. ¿Por qué es importante que el Modelo no dependa del navegador?**
+
+Porque permite probar las reglas del negocio directamente con Node.js, sin tener que abrir una página web. También hace que el Modelo pueda reutilizarse con otras interfaces.
+
+**4. ¿Qué demostraron los tres cambios de la Parte 5?**
+
+Demostraron que una regla nueva puede agregarse al Modelo, una segunda representación visual puede crearse sin modificar el Modelo y el almacenamiento puede cambiarse sin reescribir las reglas del negocio.
+
+**5. ¿Qué aprendimos sobre las pruebas de arquitectura?**
+
+Aprendimos que no basta con que la aplicación funcione. También es importante comprobar que cada pieza cumpla su responsabilidad y no dependa innecesariamente de las demás.
+
+## TEST
+
+C:\Users\santi\Downloads\solucion lab\laboratorio-mvc-notas>npm test
+
+> mvc-notas-lab@1.0.0 test
+> node pruebas/ejecutar.mjs
+
+
+MODELO
+  ✓ A · Agregar y validar ......................... 11/11
+  ✓ B · Calificar y eliminar ...................... 7/7
+  ✓ C · Resumen ................................... 10/10
+  ✓ D · Observador y persistencia ................. 8/8
+  ✓ E · Parte 5A · Nombres únicos ................. 3/3
+
+ARQUITECTURA
+  ✓ Modelo puro ................................... 4/4
+  ✓ Vista pasiva .................................. 5/5
+  ✓ Controlador delgado ........................... 6/6
+
+✓ 54 de 54 pruebas pasan.
+
+
+C:\Users\santi\Downloads\solucion lab\laboratorio-mvc-notas>
+
+## Diagrama del flujo
+
+https://lucid.app/lucidchart/8d18ca02-5bfa-4286-824e-67abd633cdeb/edit?viewport_loc=-1016%2C-454%2C1321%2C1787%2C0_0&invitationId=inv_a09c145b-520d-4a0a-99d3-47787168b629
+
