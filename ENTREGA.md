@@ -1,8 +1,8 @@
 # Entrega · Laboratorio MVC · Notas del semestre
 
-**Equipo:** ______________________  
+**Equipo: 1**  
 **Integrantes:** Santiago Machado, Sergio Perez, Juan Manuel Restrepo  
-**Repositorio:** https://github.com/sagaz-15/laboratorio-mvc-notas
+**Repositorio:** https://github.com/sagaz-15/equipo-1-mvc.git
 
 > Completa este archivo a medida que avanzas (cada sección dice en qué parte de la guía se llena).
 > Escribe con tus palabras: las respuestas copiadas de la guía o de otro equipo no cuentan.
